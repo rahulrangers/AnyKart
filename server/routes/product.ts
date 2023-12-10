@@ -33,4 +33,18 @@ res.status(200).json(products);
     }
 }
 )
+router.get("/product/:id",async(req : Request, res:Response)=>{
+    const Productid = parseInt(req.params.id);
+    const product = await prisma.product.findUnique({
+        where:{
+            Productid,
+        }
+    })
+    if(product){
+    res.status(200).json(product);
+    }
+    else{
+        res.json({"msg": "no product is found for te given id"})
+    }
+})
 export default router;

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import ProductCard from "./ProductCard"
 interface data{
+Productid : number,
 Image:String,
 price:number,
 description:String,
@@ -7,7 +10,8 @@ name:String,
 stock:String
 }
 const Card=(props:any)=>{
-    const {image , name,price,stock} = props;
+    const navigate = useNavigate();
+    const {image , name,price,id} = props;
     console.log(`the image url is ${image}`)
     return(
         <div className=" p-2  border shadow-xl w-1/3 flex "> 
@@ -19,7 +23,9 @@ const Card=(props:any)=>{
       
        <div className="m-4 text-[20px] font-bold">Price : ${price}
        </div>
-       <button className=" m-4 rounded-md bg-black text-white text-[20px] p-4">View Item</button>
+       <button onClick={()=>{
+       navigate(`product/${id}`)
+       }} className=" m-4 rounded-md bg-black text-white text-[20px] p-4 ">View Item</button>
         </div>
         </div>
         )
@@ -55,7 +61,7 @@ const getproducts=async()=>{
   
     <div className="flex justify-center flex-wrap">
         {data.map( data=>
-            <Card image={data.Image} name ={data.name} price = {data.price} stock={data.stock}/>
+            <Card id = {data.Productid} image={data.Image} name ={data.name} price = {data.price} stock={data.stock}/>
         )}
        
         </div>

@@ -37,7 +37,22 @@ router.get("/products", (req, res) => __awaiter(void 0, void 0, void 0, function
         res.status(200).json(products);
     }
     catch (error) {
+        console.log(error)
         res.status(400).json({ error });
     }
 }));
+router.get("/product/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const Productid = parseInt(req.params.id);
+    const product = yield prisma.product.findUnique({
+        where:{
+            Productid,
+        }
+    })
+    if(product){
+    res.status(200).json(product);
+    }
+    else{
+        res.json({"msg": "no product is found for te given id"})
+    }
+}))
 exports.default = router;
