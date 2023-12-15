@@ -5,9 +5,9 @@ interface data{
     Productid : number,
     Image:string,
     price:number,
-    description:String,
-    name:String,
-    stock:String
+    description:string,
+    name:string,
+    stock:string
     }
 const ProductCard=()=>{
     const [product,setproduct] = useState<data>()
@@ -36,7 +36,7 @@ const ProductCard=()=>{
     <div className=" p-4">
    <h1 className="font-bold text-[40px] m-4 ">${name}</h1>
    <div className="text-[20px] m-4 ">Iphone 12 PRO is one of a kind phone. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam deserunt labore atque, explicabo autem laboriosam, quidem temporibus dolorem enim ut nesciunt aliquid asperiores ea, voluptas amet sequi recusandae tempore mollitia a eligendi?</div>
-   <div className="m-4 text-[40px] font-bold">Price : {price}
+   <div className="m-4 text-[40px] font-bold">Price : ${price}
    </div>
    <button className=" m-4 rounded-md bg-black text-white text-[20px] p-4">Add to Cart</button>
    </div> 

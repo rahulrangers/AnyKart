@@ -4,23 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run copy-env && node dist/index.js",
+    "copy-env": "copy .env dist\\"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@prisma/client": "^5.5.2",
     "@types/node": "^20.8.9",
     "prisma": "^5.5.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.0",
     "@types/cors": "^2.8.15",
     "@types/jsonwebtoken": "^9.0.4",
+    "@types/mongoose": "^5.11.97",
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3"
   }
 }
