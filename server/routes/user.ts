@@ -41,11 +41,11 @@ router.post('/login', async(req:Request, res:Response) => {
    const user = await User.findOne({email :email })
     if (user) {
         if(user.password != undefined)
-        
+
         if(user.password == password){
             if(typeof Secret === 'string'){
         const token = jwt.sign(email, Secret);
-        res.json({ message: 'Logged in successfully', token });
+        res.json({ message: 'Logged in successfully', token,email:user.email,name:user.username });
             }
         } 
         else{

@@ -43,13 +43,13 @@ router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-
     const user = yield user_1.default.findOne({ email: email });
     if (user) {
+        if (user.password != undefined)
             if (user.password == password) {
                 if (typeof Secret === 'string') {
                     const token = jsonwebtoken_1.default.sign(email, Secret);
-                    res.json({ message: 'Logged in successfully', token });
+                    res.json({ message: 'Logged in successfully', token, email: user.email, name: user.username });
                 }
             }
             else {

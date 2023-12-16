@@ -1,6 +1,11 @@
 
 import React, { useState } from "react";
-const Signup = () => {
+import { useGoogleLogin, TokenResponse } from '@react-oauth/google';
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { userState } from "../store/authstate";
+const Login = () => {
+  const [User,setUser]= useRecoilState(userState);
     const [email,setemail]= useState("");
     const [password,setpassword]= useState("");
     const getuser=async()=>{
@@ -16,6 +21,7 @@ const Signup = () => {
         })
         })
         const user = await response.json();
+        setUser(user.name);
         alert(user.message);
         }
   return (
@@ -25,9 +31,13 @@ const Signup = () => {
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Email" onChange={(e)=>{setemail(e.target.value)}} />
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Password" onChange={(e)=>{setpassword(e.target.value)}} />
         <button className="bg-black text-[20px] font-bold text-white rounded-md p-4" onClick={getuser}>Login</button>
+       
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
+
+
+
