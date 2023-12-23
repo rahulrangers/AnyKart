@@ -7,7 +7,7 @@ import { userState } from "../store/authstate";
 const Signup = () => {
   const [user , setUser] = useRecoilState(userState);
 
-  const details =(token)=>{
+  const details =(token:string)=>{
     const accessToken = token;
      fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
       headers: {
@@ -46,13 +46,13 @@ const Signup = () => {
         }
   return (
     <div className="fixed w-screen h-screen bg-slate-300 flex items-center justify-center">
-      <div className="flex flex-col items-center shadow-2xl bg-white w-96 h-96 border">
-        <div className="text-[36px] font-bold">Signup</div>
+      <div className="flex flex-col items-center shadow-2xl bg-white w-96 p-5 border">
+        <div className="text-[36px] font-bold ">Signup</div>
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Username" onChange={(e)=>{setuser(e.target.value)}} />
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Email" onChange={(e)=>{setemail(e.target.value)}} />
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Password" onChange={(e)=>{setpassword(e.target.value)}} />
-        <button className="bg-black text-[20px] font-bold text-white rounded-md p-4" onClick={getuser}>signup</button>
-        <Button onClick={() => login()}>Sign in with Google 🚀</Button>;
+        <button className="bg-black text-[20px] font-bold text-white rounded-md p-3 m-2" onClick={getuser}>signup</button>
+      <Button  variant = "contained" onClick={() => login()}>Sign in with Google</Button>
       </div>
     </div>
   );

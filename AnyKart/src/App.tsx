@@ -6,7 +6,7 @@ import Login from "./Components/Login"
 import Signup from "./Components/Signup"
 import ProductPage from "./Components/ProductPage"
 import ProductCard from "./Components/ProductCard"
-import {RecoilRoot,useRecoilState,useRecoilValue} from "recoil"
+import {RecoilRoot} from "recoil"
 const App=()=>{
 return(
    
@@ -21,8 +21,8 @@ return(
         <Route path="/" element={<Home/>} />
        <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="/productpage" element={<ProductPage/>}/>
-        <Route path="/productpage/product/:id" element={<ProductCard/>}/>
+        <Route path="/productpage/:category" element={<ProductPage/>}/>
+        <Route path="/productpage/:category/product/:id" element={<ProductCard/>}/>
         </Routes>
         </div>
         </RecoilRoot>

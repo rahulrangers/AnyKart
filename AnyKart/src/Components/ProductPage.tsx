@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 interface data{
 _id: string,
 Image:string,
@@ -7,6 +7,7 @@ price:number,
 description:string,
 name:string,
 stock:string
+category:string,
 }
 const Card=(props:any)=>{
     const navigate = useNavigate();
@@ -31,8 +32,9 @@ const Card=(props:any)=>{
         )
 }
 const ProductPage=()=>{
+const {category} = useParams();
 const getproducts=async()=>{
-    const res = await fetch("http://localhost:5000/admin/products",{
+    const res = await fetch(`http://localhost:5000/admin/products/${category}`,{
         method:"GET",
     })
     const products = await res.json()
@@ -58,10 +60,9 @@ const getproducts=async()=>{
 
         ) :
 (
-  
     <div className="flex justify-center flex-wrap">
         {data.map( data=>
-            <Card id = {data._id} image={data.Image} name ={data.name} price = {data.price} stock={data.stock}/>
+            <Card id = {data._id} category = {data.category} image={data.Image} name ={data.name} price = {data.price} stock={data.stock}/>
         )}
        
         </div>

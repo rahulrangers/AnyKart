@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import laptop from "../assets/images/laptop.jpg"
 import mobile from "../assets/images/mobile.jpg"
 import Tv from "../assets/images/tv.jfif"
@@ -11,51 +11,64 @@ import Typed from "react-typed"
 import { useNavigate } from "react-router-dom"
 const Home=()=>{
     const navigate = useNavigate();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
 return(
    <>
+   {windowWidth>=767?(<>
    <div className="flex justify-between w-full ">
 <div>
 <img onClick={()=>{
-navigate("/productpage");
+navigate("/productpage/Mobiles");
 }}className="hover:scale-105 duration-500 shadow-lg shadow-slate-500 rounded-full  mx-10  h-[80px] "src={mobile} alt="none"/>
 <div className="flex justify-center font-bold">Mobiles</div>
 </div>
 <div>
 <img onClick={()=>{
-navigate("/productpage");
+navigate("/productpage/Grocery");
 }} className=" hover:scale-105 duration-500 shadow-lg shadow-slate-500 rounded-full  mx-10 h-[80px] "src={grocery} alt="none"/>
 <div className="flex justify-center font-bold">Grocery</div>
 </div>
 <div>
 <img  onClick={()=>{
-navigate("/productpage");
+navigate("/productpage/Fashion");
 }}className=" hover:scale-105 duration-500 shadow-lg shadow-slate-500  rounded-full  mx-10  h-[80px] "src={fashion} alt="none"/>
 <div className="flex justify-center font-bold">Fashion</div>
 </div>
 <div>
 <img onClick={()=>{
-navigate("/productpage");
+navigate("/productpage/Furniture");
 }} className="hover:scale-105 duration-500 shadow-lg shadow-slate-500  rounded-full  mx-10   h-[80px] "src={Furniture} alt="none"/>
 <div className="flex justify-center font-bold">Furniture</div>
 </div>
 <div>
 <img onClick={()=>{
-navigate("/productpage");
+navigate("/productpage/Electronics");
 }} className=" hover:scale-105 duration-500 shadow-lg shadow-slate-500 rounded-full  mx-10   h-[80px] "src={electronics} alt="none"/>
 <div className="flex justify-center font-bold">Electronics</div>
 </div>
 <div>
 <img onClick={()=>{
-navigate("/productpage");
+navigate("/productpage/Tv");
 }} className=" hover:scale-105 duration-500 shadow-lg shadow-slate-500 rounded-full  mx-10   h-[80px] "src={Tv} alt="none"/>
-<div className="flex justify-center font-bold">Tv</div>
+<div className="flex justify-center font-bold">TV</div>
 </div>
    </div>
-   <div className="w-full  md:grid grid-cols-2  bg-slate-800 ">
-    <div className=" p-2 col-span-1 my-2">
+   </>):
+   <></>}
+   <div className="w-full  grid md:grid-cols-2  bg-slate-800 ">
+    <div className=" p-2 mx-auto">
         <img src={advertise} alt="none"/>
     </div>
-    <div className=" my-2 col-span-1 py-24 text-[40px] text-white mx-auto font-bold">
+    <div className=" my-2 py-12 text-[40px] text-white mx-auto font-bold">
     <div>Welcome to AnyKart</div>
     <div>We Provide  <Typed strings={["Mobiles","Furniture","Television","Groceries","Electronics","Fashion"]}
     loop={true}

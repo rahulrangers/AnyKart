@@ -47,8 +47,16 @@ router.get("/product/:id",async(req : Request, res:Response)=>{
         }
         else{
             res.status(400).json({msg:"some error with id of product"});   
+        } 
+})
+router.get("/products/:category",async(req : Request, res:Response)=>{
+    const category:string = req.params.category;
+    const product = await Product.find({category});
+        if(product){
+            res.status(200).json(product);
         }
-    
-    
+        else{
+            res.status(400).json({msg:"some error with catgeory of product"});   
+        } 
 })
 export default router;

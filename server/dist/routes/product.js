@@ -51,4 +51,14 @@ router.get("/product/:id", (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(400).json({ msg: "some error with id of product" });
     }
 }));
+router.get("/products/:category", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const category = req.params.category;
+    const product = yield product_1.default.find({ category });
+    if (product) {
+        res.status(200).json(product);
+    }
+    else {
+        res.status(400).json({ msg: "some error with catgeory of product" });
+    }
+}));
 exports.default = router;
