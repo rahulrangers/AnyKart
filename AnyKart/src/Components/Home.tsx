@@ -24,7 +24,7 @@ const Home=()=>{
 return(
    <>
    {windowWidth>=767?(<>
-   <div className="flex justify-between w-full ">
+   <div className="flex justify-between w-full py-4">
 <div>
 <img onClick={()=>{
 navigate("/productpage/Mobiles");

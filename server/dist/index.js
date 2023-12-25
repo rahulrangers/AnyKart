@@ -19,7 +19,10 @@ const user_1 = __importDefault(require("./routes/user"));
 const product_1 = __importDefault(require("./routes/product"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const google_auth_library_1 = require("google-auth-library");
+const google_auth_library_2 = require("google-auth-library");
 dotenv_1.default.config();
+const oAuth2Client = new google_auth_library_1.OAuth2Client(process.env.client_id, process.env.client_secret, 'postmessage');
 const DATABASE_URL = process.env.DATABASE_URL;
 function connect() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -27,8 +30,7 @@ function connect() {
             if (typeof DATABASE_URL === 'string')
                 yield mongoose_1.default.connect(DATABASE_URL);
             else
-                console.log("error with the url");
-            console.log("connected to the mongoose");
+                console.log("connected to the mongoose");
         }
         catch (error) {
             console.log(error);
@@ -40,6 +42,16 @@ const app = (0, express_1.default)();
 const port = 5000;
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
+app.post('/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tokens } = yield oAuth2Client.getToken(req.body.code);
+    console.log(tokens);
+    res.json(tokens);
+}));
+app.post('/auth/google/refresh-token', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = new google_auth_library_2.UserRefreshClient(process.env.client_id, process.env.client_Secret, req.body.refreshToken);
+    const { credentials } = yield user.refreshAccessToken();
+    res.json(credentials);
+}));
 app.use("/", user_1.default);
 app.use("/admin", product_1.default);
 app.listen(port, () => {

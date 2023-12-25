@@ -1,14 +1,16 @@
 
 import React, { useState } from "react";
 import { useGoogleLogin } from '@react-oauth/google';
-import { Button } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { userState } from "../store/authstate";
+
+import axios from "axios";
 const Signup = () => {
   const [user , setUser] = useRecoilState(userState);
-
   const details =(token:string)=>{
     const accessToken = token;
+    localStorage.setItem("token",accessToken);
      fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -20,10 +22,20 @@ const Signup = () => {
       setUser(data.name);
     })
     .catch(error => console.error('Error fetching user details:', error));
-    
   }
   const login = useGoogleLogin({
-    onSuccess: tokenResponse => details(tokenResponse.access_token),
+    onSuccess: async ({ code }) => {
+      console.log(code)
+      const tokens = await axios.post('http://localhost:5000/auth/google', {  
+        code,
+      });
+  
+      console.log(tokens.data.access_token);
+      if(typeof tokens.data.access_token === 'string'){
+      details(tokens.data.access_token);
+      }
+    },
+    flow: 'auth-code',
   });
     const [username,setuser]= useState("");
     const [email,setemail]= useState("");
@@ -42,7 +54,9 @@ const Signup = () => {
         })
         })
         const user = await response.json();
-        alert(user.message);
+        alert(user.message)
+        
+       
         }
   return (
     <div className="fixed w-screen h-screen bg-slate-300 flex items-center justify-center">
@@ -51,7 +65,8 @@ const Signup = () => {
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Username" onChange={(e)=>{setuser(e.target.value)}} />
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Email" onChange={(e)=>{setemail(e.target.value)}} />
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Password" onChange={(e)=>{setpassword(e.target.value)}} />
-        <button className="bg-black text-[20px] font-bold text-white rounded-md p-3 m-2" onClick={getuser}>signup</button>
+        <button className="bg-black text-[20px] font-bold text-white rounded-md p-3 m-2
+        " onClick={getuser}>signup</button>
       <Button  variant = "contained" onClick={() => login()}>Sign in with Google</Button>
       </div>
     </div>

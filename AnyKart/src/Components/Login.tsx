@@ -21,6 +21,7 @@ const Login = () => {
         })
         })
         const user = await response.json();
+      localStorage.setItem("token",user.token);
         setUser(user.name);
         alert(user.message);
         }

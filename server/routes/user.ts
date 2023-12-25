@@ -5,7 +5,7 @@ dotenv.config();
 const Secret = process.env.Secret
 import User from '../db/user'
 import  jwt  from 'jsonwebtoken';
-
+import authent from "../middleware/security"
 import { Request,Response } from "express";
 interface user {
     username:string,
@@ -44,7 +44,7 @@ router.post('/login', async(req:Request, res:Response) => {
 
         if(user.password == password){
             if(typeof Secret === 'string'){
-        const token = jwt.sign(email, Secret);
+        const token = jwt.sign({email}, Secret);
         res.json({ message: 'Logged in successfully', token,email:user.email,name:user.username });
             }
         } 
@@ -56,6 +56,19 @@ router.post('/login', async(req:Request, res:Response) => {
         res.status(400).json({msg:"user doesn't exist"});
     }    
 })
+router.get("/getuser",authent,async(req : Request,res:Response)=>{
 
+const email = req.headers["userid"];
+console.log(email)
+const user = await User.findOne({email :email })
+if (user) {
+    console.log(user);
+    res.json({email:user.email,name:user.username });
+        
+}
+else{
+    res.status(400).json({msg:"user doesn't exist"});
+}  
+})
 
 export default router;

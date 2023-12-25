@@ -17,10 +17,7 @@ const ProductCard=()=>{
             method:"GET",
         })
         const product = await res.json()
-        console.log(" i am coding again u can see ")
-        console.log(product)
         setproduct(product)
-
     }
     useEffect(()=>{
         getproduct()
@@ -29,7 +26,7 @@ const ProductCard=()=>{
     const {Image,name,price,description} = product;
     return(
 <div >
-<div className="w-full grid grid-cols-2">
+<div className="w-full md:grid md:grid-cols-2">
     <div className="py-5">
         <img className="mx-auto h-[400px] shadow-2xl duration-500 hover:scale-105" src={Image} alt="none"/>
     </div>

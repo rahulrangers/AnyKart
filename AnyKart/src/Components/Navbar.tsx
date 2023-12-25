@@ -1,4 +1,4 @@
-import React, { useState ,} from "react";
+import React, { useEffect, useState ,} from "react";
 import {AiOutlineMenu,AiOutlineClose} from "react-icons/ai"
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -7,7 +7,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 const Navbar=()=>{
     const navigate = useNavigate();
     const [toggle,setToggle]=useState(false)
-    const [user ,setuser]= useRecoilState(userState)
+    const [user ,setUser]= useRecoilState(userState)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,15 +16,42 @@ const Navbar=()=>{
     const handleClose = () => {
       setAnchorEl(null);
     };
+    const getuser = async()=>{
+      console.log("hi");
+      console.log( localStorage.getItem("token"))
+      const response = await fetch("http://localhost:5000/getuser",{
+      method:'GET',
+      headers:{
+        Authorization : localStorage.getItem("token"),
+        'Content-Type': 'application/json',
+      },
+      })
+      const data = await response.json();
+      if(data == "internal error"){
+       const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        const data =await response.json();
+        console.log(data);
+        setUser(data.name);
+      }
+     else
+      setUser(data.name);
+    }
+    useEffect(()=>{
+    getuser()
+    },[]) 
     return(
-<div className=" flex w-full py-2  items-center justify-between text-[20px]  text-white font-bold bg-slate-800">
+<div className=" flex w-full py-4 items-center justify-between text-[20px]  text-white font-bold bg-slate-800">
     <div className="mx-2 ">AnyKart</div>
     <div >
         <ul className="hidden md:flex " >
             <Link to={"/"}>
             <li className="mx-2 rounded-md p-2  hover:bg-orange-600">Home</li>
             </Link>
-            {!user?(<>
+            {localStorage.getItem("token")?.length==0?(<>
             <Link to={"/signup"}>
             <li className="mx-2 rounded-md p-2 hover:bg-orange-600">Signup</li>
             </Link>
@@ -33,17 +60,18 @@ const Navbar=()=>{
             </Link>
             </>
             ):(
+
             <>
             <button className="mx-2 rounded-md p-2 hover:bg-orange-600">{user}</button>
             <button className="mx-2 rounded-md p-2 hover:bg-orange-600" onClick={()=>{
            navigate("signup")
-           console.log(user)
-           setuser('');
-           console.log(user)
+           localStorage.setItem("token","");
             }}>Logout</button>
             </>
             )}
+            <Link to={"/contact"}>
             <li className="mx-4 rounded-md p-2 hover:bg-orange-600">Contact Us</li>
+            </Link>
         </ul>
         {toggle?
         <AiOutlineClose className=" md:hidden mx-4" onClick={()=>{

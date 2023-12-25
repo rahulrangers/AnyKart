@@ -14,7 +14,7 @@ const Card=(props:any)=>{
     const {image , name,price,id} = props;
     console.log(`the image url is ${image}`)
     return(
-        <div className=" p-2  border shadow-xl w-1/3 flex "> 
+        <div className=" p-2  border shadow-xl md:w-1/3 flex "> 
               <div className="">
             <img className=" h-[250px] p-4" src={image} alt="none"/>
         </div>
@@ -37,19 +37,13 @@ const getproducts=async()=>{
     const res = await fetch(`http://localhost:5000/admin/products/${category}`,{
         method:"GET",
     })
-    const products = await res.json()
-    console.log("hello");
-    console.log(products[0]);
-    console.log("hi")
+    const products = await res.json();
      setdata(products);
     }
     const [data,setdata] = useState<data[]>([])
     useEffect(()=>{
         getproducts()
     },[])
-    console.log(data);
-    console.log("comeonman")
-    console.log(typeof data);
     return(
 
        <>
