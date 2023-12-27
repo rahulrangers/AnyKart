@@ -21,13 +21,14 @@ const user_1 = __importDefault(require("../db/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const security_1 = __importDefault(require("../middleware/security"));
 router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password } = req.body;
+    const { username, email, password, image } = req.body;
     console.log(username);
     try {
         const user = yield user_1.default.create({
             username: username,
             email: email,
-            password: password
+            password: password,
+            image: image
         });
         if (typeof Secret === 'string') {
             const token = jsonwebtoken_1.default.sign({ email: req.body.email }, Secret);
@@ -50,7 +51,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
             if (user.password == password) {
                 if (typeof Secret === 'string') {
                     const token = jsonwebtoken_1.default.sign({ email }, Secret);
-                    res.json({ message: 'Logged in successfully', token, email: user.email, name: user.username });
+                    res.json({ message: 'Logged in successfully', token, email: user.email, image: user.image, name: user.username });
                 }
             }
             else {
@@ -67,7 +68,7 @@ router.get("/getuser", security_1.default, (req, res) => __awaiter(void 0, void 
     const user = yield user_1.default.findOne({ email: email });
     if (user) {
         console.log(user);
-        res.json({ email: user.email, name: user.username });
+        res.json({ email: user.email, name: user.username, image: user.image });
     }
     else {
         res.status(400).json({ msg: "user doesn't exist" });

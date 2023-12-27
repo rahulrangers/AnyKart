@@ -13,13 +13,14 @@ interface user {
     password:string
 }
 router.post("/signin",async(req :Request,res:Response)=>{
-    const{username,email,password}= req.body;
+    const{username,email,password,image}= req.body;
     console.log(username)
     try{
         const user  = await User.create({
             username:username,
             email:email,
-            password : password
+            password : password,
+            image:image
         })
  if(typeof Secret === 'string'){
  const token = jwt.sign({ email: req.body.email  } , Secret);
@@ -45,7 +46,7 @@ router.post('/login', async(req:Request, res:Response) => {
         if(user.password == password){
             if(typeof Secret === 'string'){
         const token = jwt.sign({email}, Secret);
-        res.json({ message: 'Logged in successfully', token,email:user.email,name:user.username });
+        res.json({ message: 'Logged in successfully', token,email:user.email,image:user.image,name:user.username });
             }
         } 
         else{
@@ -63,7 +64,7 @@ console.log(email)
 const user = await User.findOne({email :email })
 if (user) {
     console.log(user);
-    res.json({email:user.email,name:user.username });
+    res.json({email:user.email,name:user.username ,image:user.image});
         
 }
 else{

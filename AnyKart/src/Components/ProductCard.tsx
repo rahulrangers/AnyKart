@@ -1,6 +1,9 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { orderstate } from "../store/authstate";
+
 interface data{
     Productid : number,
     Image:string,
@@ -10,6 +13,7 @@ interface data{
     stock:string
     }
 const ProductCard=()=>{
+    const[orders,setorder]=useRecoilState(orderstate)
     const [product,setproduct] = useState<data>()
     const {id} = useParams();
     const getproduct = async()=>{
@@ -24,6 +28,14 @@ const ProductCard=()=>{
     },[])
     if(product!= undefined){
     const {Image,name,price,description} = product;
+    const addcart=()=>{
+        setorder((oldorders)=>
+       [...oldorders,{
+        name:name,
+        prize:price
+       },
+        ])
+    }
     return(
 <div >
 <div className="w-full md:grid md:grid-cols-2">
@@ -35,7 +47,7 @@ const ProductCard=()=>{
    <div className="text-[20px] m-4 ">{description}</div>
    <div className="m-4 text-[40px] font-bold">Price : ${price}
    </div>
-   <button className=" m-4 rounded-md bg-black text-white text-[20px] p-4">Add to Cart</button>
+   <button onClick={addcart} className=" m-4 rounded-md bg-black text-white text-[20px] p-4">Add to Cart</button>
    </div> 
 </div>
 </div>

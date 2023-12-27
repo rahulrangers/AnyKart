@@ -2,10 +2,13 @@ import React, { useEffect, useState ,} from "react";
 import {AiOutlineMenu,AiOutlineClose} from "react-icons/ai"
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState } from "../store/authstate";
+import { emailstate, imagestate, userState } from "../store/authstate";
 import { Button, Menu, MenuItem } from "@mui/material";
 const Navbar=()=>{
     const navigate = useNavigate();
+
+    const [image,setimage] = useRecoilState(imagestate)
+    const [email,setemail] = useRecoilState(emailstate)
     const [toggle,setToggle]=useState(false)
     const [user ,setUser]= useRecoilState(userState)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -17,12 +20,10 @@ const Navbar=()=>{
       setAnchorEl(null);
     };
     const getuser = async()=>{
-      console.log("hi");
-      console.log( localStorage.getItem("token"))
       const response = await fetch("http://localhost:5000/getuser",{
       method:'GET',
       headers:{
-        Authorization : localStorage.getItem("token"),
+        Authorization : localStorage.getItem("token")??'',
         'Content-Type': 'application/json',
       },
       })
@@ -34,8 +35,9 @@ const Navbar=()=>{
           },
         })
         const data =await response.json();
-        console.log(data);
         setUser(data.name);
+        setimage(data.picture)
+        setemail(data.email)
       }
      else
       setUser(data.name);
@@ -51,7 +53,7 @@ const Navbar=()=>{
             <Link to={"/"}>
             <li className="mx-2 rounded-md p-2  hover:bg-orange-600">Home</li>
             </Link>
-            {localStorage.getItem("token")?.length==0?(<>
+            {localStorage.getItem("token").length==0?(<>
             <Link to={"/signup"}>
             <li className="mx-2 rounded-md p-2 hover:bg-orange-600">Signup</li>
             </Link>
@@ -62,7 +64,9 @@ const Navbar=()=>{
             ):(
 
             <>
+            <Link to={"/profile"}>
             <button className="mx-2 rounded-md p-2 hover:bg-orange-600">{user}</button>
+            </Link>
             <button className="mx-2 rounded-md p-2 hover:bg-orange-600" onClick={()=>{
            navigate("signup")
            localStorage.setItem("token","");
@@ -97,7 +101,7 @@ const Navbar=()=>{
         onClick={handleClick}
         className="text-white"
       >
-        Dashboard
+        Categories
       </Button>
       <Menu
         id="basic-menu"

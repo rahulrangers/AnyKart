@@ -1,11 +1,11 @@
 
 import React, { useState } from "react";
-import { useGoogleLogin, TokenResponse } from '@react-oauth/google';
-import axios from "axios";
 import { useRecoilState } from "recoil";
-import { userState } from "../store/authstate";
+import { emailstate, imagestate, userState } from "../store/authstate";
 const Login = () => {
+  const[image,setimage] = useRecoilState(imagestate)
   const [User,setUser]= useRecoilState(userState);
+  const [Email,setEmail] = useRecoilState(emailstate);
     const [email,setemail]= useState("");
     const [password,setpassword]= useState("");
     const getuser=async()=>{
@@ -21,11 +21,15 @@ const Login = () => {
         })
         })
         const user = await response.json();
+        console.log(user);
       localStorage.setItem("token",user.token);
+      setimage(user.image);
+      setEmail(user.email);
         setUser(user.name);
         alert(user.message);
         }
   return (
+
     <div className="fixed w-screen h-screen bg-slate-300 flex items-center justify-center">
       <div className="flex flex-col items-center shadow-2xl bg-white w-96 h-96 border">
         <div className="text-[36px] font-bold">Login</div>
@@ -35,6 +39,7 @@ const Login = () => {
        
       </div>
     </div>
+    
   );
 };
 
