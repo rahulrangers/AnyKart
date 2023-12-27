@@ -1,8 +1,8 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { orderstate } from "../store/authstate";
+import { RecoilState, useRecoilState, useRecoilStoreID } from "recoil";
+import { orderstate, userState } from "../store/authstate";
 
 interface data{
     Productid : number,
@@ -13,6 +13,7 @@ interface data{
     stock:string
     }
 const ProductCard=()=>{
+    const [user,setuser] = useRecoilState(userState)
     const[orders,setorder]=useRecoilState(orderstate)
     const [product,setproduct] = useState<data>()
     const {id} = useParams();
@@ -29,12 +30,17 @@ const ProductCard=()=>{
     if(product!= undefined){
     const {Image,name,price,description} = product;
     const addcart=()=>{
+        if(user){
         setorder((oldorders)=>
        [...oldorders,{
         name:name,
         prize:price
        },
         ])
+        alert(`Added ${name} to the cart`)}
+        else{
+            alert("Please login inorder to add the item")
+        }
     }
     return(
 <div >

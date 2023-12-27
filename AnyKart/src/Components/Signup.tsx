@@ -61,13 +61,12 @@ const Signup = () => {
         })
         const user = await response.json();
         alert(user.message)
-        
-       
         }
   return (
-    <div className="fixed w-screen h-screen bg-slate-300 flex items-center justify-center">
+   
+    <div className="w-screen h-screen bg-slate-300 flex items-center justify-center">
       <div className="flex flex-col  shadow-2xl bg-white w-96 p-6 border">
-      <Button variant = "contained" onClick={() => login()}>Sign in with Google</Button>
+      <Button  variant = "contained" onClick={() => login()}>Sign in with Google</Button>
       <div className="m-2 text-[20px] font-extrabold mx-auto">---------------OR---------------</div>
         <div className="text-[24px] font-bold mx-auto ">Create Account</div>
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Username" onChange={(e)=>{setuser(e.target.value)}} />

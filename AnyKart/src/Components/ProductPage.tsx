@@ -12,21 +12,20 @@ category:string,
 const Card=(props:any)=>{
     const navigate = useNavigate();
     const {image , name,price,id} = props;
-    console.log(`the image url is ${image}`)
     return(
-        <div className=" p-2  border shadow-xl md:w-1/3 flex "> 
+        <div className=" p-2 border shadow-xl md:w-1/3 flex "> 
               <div className="">
-            <img className=" h-[250px] p-4" src={image} alt="none"/>
+            <img className=" h-[200px] w-[200px] sm:h-[250px] p-4" src={image} alt="none"/>
         </div>
         <div className=" p-2">
-       <h1 className="font-bold text-[20px] m-4 ">{name} </h1>
+       <h1 className="font-bold text-[20px] m-4 flex justify-center">{name} </h1>
       
-       <div className="m-4 text-[20px] font-bold">Price : ${price}
+       <div className="m-4 text-[20px] font-bold flex justify-center">Price : ${price}
        </div>
        <button onClick={()=>{
        navigate(`product/${id}`)
        }}
-        className=" m-4 rounded-md bg-black text-white text-[20px] p-4 ">View Item</button>
+        className=" m-4 rounded-md bg-black text-white text-[20px] p-4 flex justify-center ">View Item</button>
         </div>
         </div>
         )
@@ -43,7 +42,7 @@ const getproducts=async()=>{
     const [data,setdata] = useState<data[]>([])
     useEffect(()=>{
         getproducts()
-    },[])
+    },[category])
     return(
 
        <>

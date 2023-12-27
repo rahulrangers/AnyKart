@@ -54,7 +54,7 @@ router.post('/login', async(req:Request, res:Response) => {
         } 
     }
     else{
-        res.status(400).json({msg:"user doesn't exist"});
+        res.status(400).json({msg:"user doesn't exist",token:""});
     }    
 })
 router.get("/getuser",authent,async(req : Request,res:Response)=>{

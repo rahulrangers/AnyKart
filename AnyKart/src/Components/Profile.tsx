@@ -32,19 +32,15 @@ const Profile = ()=>{
   },[orders])
   console.log(orders);
     return(
-<div className="p-3  w-full h-full border-2 border-black">
-    <div className="m-2 flex justify-center">
+<div className="p-5 mx-auto my-32 w-5/12 md:h-96 border-2  bg-yellow-200 shadow-2xl shadow-black border-black">
+    <div className="m-2 flex justify-start">
         <img className="w-24 h-24 rounded-full" src={image} alt="no-image" />
     </div>
     <div>
-        <div className="text-[20px] font-bold flex justify-center">Name: {user}</div>
-        <div className="text-[20px] font-bold  flex justify-center">Email : {email}</div>
+        <div className="text-[20px]  my-2 font-serif flex justify-start">Name: {user}</div>
+        <div className="text-[20px] my-2 font-serif  break-words">Email : {email}</div>
       
-        <div className="flex justify-center">
-            <div  className="m-2" >
-        <Button variant="contained">Orders placed</Button>
-        </div>
-        <div  className="m-2" >
+        <div  className="my-4 flex justify-start" >
         <Button variant="contained" onClick={handleOpen}>Incart</Button>
 <Modal
   open={open}
@@ -86,7 +82,7 @@ const Profile = ()=>{
   </Box>
 </Modal>
         </div>
-        </div>
+        
         </div>
 </div>
 

@@ -16,7 +16,11 @@ const Navbar=()=>{
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
     };
+    const togglechange=()=>{
+      setToggle(false);
+    }
     const handleClose = () => {
+      setToggle(false)
       setAnchorEl(null);
     };
     const getuser = async()=>{
@@ -53,7 +57,7 @@ const Navbar=()=>{
             <Link to={"/"}>
             <li className="mx-2 rounded-md p-2  hover:bg-orange-600">Home</li>
             </Link>
-            {localStorage.getItem("token").length==0?(<>
+            { !localStorage.getItem("token")===null||localStorage.getItem("token")?.length===0?(<>
             <Link to={"/signup"}>
             <li className="mx-2 rounded-md p-2 hover:bg-orange-600">Signup</li>
             </Link>
@@ -62,7 +66,6 @@ const Navbar=()=>{
             </Link>
             </>
             ):(
-
             <>
             <Link to={"/profile"}>
             <button className="mx-2 rounded-md p-2 hover:bg-orange-600">{user}</button>
@@ -87,22 +90,19 @@ const Navbar=()=>{
 
         }}/>
         }
-        <ul className={` duration-300 md:hidden w-full h-full top-10 bg-black fixed ${toggle? 'left-0': 'left-[-100%]' }` } >
+        <ul className={` duration-300 md:hidden w-full h-full top-14 bg-black fixed z-1 ${toggle? 'left-0': 'left-[-100%]' }` } >
             <Link to={"/"}>
-            <li className="mx-2 my-10">Home</li>
+            <li onClick={()=>{
+setToggle(false); 
+            }} className="mx-2 my-10">Home</li>
             </Link>
             <li>
-      <Button
-     
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        className="text-white"
+      <button
+       className="rounded-md p-2 hover:bg-orange-600 "
+       onClick={handleClick}
       >
         Categories
-      </Button>
+      </button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -121,7 +121,7 @@ const Navbar=()=>{
         <Link to={"/productpage/Fashion"}>
         <MenuItem onClick={handleClose}>Fashion</MenuItem>
         </Link> 
-        <Link to={"/productpageFurniture"}>
+        <Link to={"/productpage/Furniture"}>
         <MenuItem onClick={handleClose}>Furniture</MenuItem>
         </Link>
         <Link to={"/productpage/Electronics"}>
@@ -132,13 +132,31 @@ const Navbar=()=>{
         </Link>
       </Menu>
     </li>
+    { !localStorage.getItem("token")===null||localStorage.getItem("token")?.length===0?(<>
             <Link to={"/signup"}>
-            <li className="mx-2 my-10">Signup</li>
+            <li onClick={togglechange} className="mx-2 my-10">Signup</li>
             </Link>
             <Link  to={"/login"}>
-            <li className="mx-2 my-10">Login</li>
+            <li onClick={togglechange}className="mx-2 my-10">Login</li>
             </Link>
-            <li className="mx-2 my-10">Contact Us</li>
+            </>
+            ):(
+              <>
+              <Link to={"/profile"}>
+              <button onClick={togglechange} className=" my-10 rounded-md p-2 hover:bg-orange-600">{user}</button>
+              </Link>
+              <div>
+              <button className="rounded-md p-2 hover:bg-orange-600" onClick={()=>{
+             navigate("signup")
+             localStorage.setItem("token","");
+             setToggle(false);
+              }}>Logout</button>
+              </div>
+              </>
+              )}
+            <Link to={"/contact"}>
+            <li onClick={togglechange} className="mx-2 my-10">Contact Us</li>
+            </Link>
         </ul>
 
          </div>

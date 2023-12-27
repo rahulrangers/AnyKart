@@ -68,7 +68,7 @@ navigate("/productpage/Tv");
     <div className=" p-2 mx-auto">
         <img src={advertise} alt="none"/>
     </div>
-    <div className=" my-2 py-12 text-[40px] text-white mx-auto font-bold">
+    <div className=" my-2 p-4 py-12 text-[40px] text-white mx-auto font-bold">
     <div>Welcome to AnyKart</div>
     <div>We Provide  <Typed strings={["Mobiles","Furniture","Television","Groceries","Electronics","Fashion"]}
     loop={true}

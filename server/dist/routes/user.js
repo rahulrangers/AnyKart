@@ -59,7 +59,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
             }
     }
     else {
-        res.status(400).json({ msg: "user doesn't exist" });
+        res.status(400).json({ msg: "user doesn't exist", token: "" });
     }
 }));
 router.get("/getuser", security_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
