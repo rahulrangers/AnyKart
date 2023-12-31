@@ -15,7 +15,7 @@ return(
 <div>
    <BrowserRouter>
    <RecoilRoot>
-   <div className="fixed w-full">
+   <div className=" fixed w-full">
    <Navbar/>
    </div>
    <div className="py-16">
@@ -29,6 +29,7 @@ return(
         <Route path="/productpage/:category/product/:id" element={<ProductCard/>}/>
         </Routes>
         </div>
+        
         </RecoilRoot>
         </BrowserRouter> 
 
