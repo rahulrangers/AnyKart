@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { useGoogleLogin } from '@react-oauth/google';
-import { Alert, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { emailstate, imagestate, userState } from "../store/authstate";
 
@@ -24,6 +24,9 @@ const Signup = () => {
       setUser(data.name);
       setEmail(data.email);
       setImage(data.picture);
+      console.log(Email);
+      console.log(Image);
+      console.log(user)
     })
     .catch(error => console.error('Error fetching user details:', error));
   }

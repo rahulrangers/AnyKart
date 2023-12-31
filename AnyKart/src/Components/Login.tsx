@@ -27,6 +27,9 @@ const Login = () => {
       setEmail(user.email);
         setUser(user.name);
         alert(user.message);
+        console.log(image);
+        console.log(User)
+        console.log(Email)
         }
   return (
 

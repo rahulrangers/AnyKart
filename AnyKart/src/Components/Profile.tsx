@@ -1,4 +1,4 @@
-import {useRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import { emailstate, imagestate, orderstate, userState } from "../store/authstate";
 import React, { useEffect } from 'react';
 import { useState } from "react";
@@ -17,9 +17,9 @@ const style = {
 const Profile = ()=>{
     const[total,settotal]= useState(0);
     const [orders,setorder] = useRecoilState(orderstate)
-    const [image,setimage] = useRecoilState(imagestate)
-    const [user,setUser] = useRecoilState(userState)
-    const[email,setemail] = useRecoilState(emailstate)
+    const [image]:string = useRecoilValue(imagestate)
+    const [user]:string = useRecoilValue(userState)
+    const[email]:string = useRecoilValue(emailstate)
     const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

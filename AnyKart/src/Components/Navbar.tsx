@@ -3,7 +3,7 @@ import {AiOutlineMenu,AiOutlineClose} from "react-icons/ai"
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { emailstate, imagestate, userState } from "../store/authstate";
-import { Button, Menu, MenuItem } from "@mui/material";
+import {  Menu, MenuItem } from "@mui/material";
 const Navbar=()=>{
     const navigate = useNavigate();
 
@@ -42,6 +42,8 @@ const Navbar=()=>{
         setUser(data.name);
         setimage(data.picture)
         setemail(data.email)
+        console.log(image);
+        console.log(email)
       }
      else
       setUser(data.name);

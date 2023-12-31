@@ -1,7 +1,7 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { RecoilState, useRecoilState, useRecoilStoreID } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { orderstate, userState } from "../store/authstate";
 
 interface data{
@@ -13,7 +13,7 @@ interface data{
     stock:string
     }
 const ProductCard=()=>{
-    const [user,setuser] = useRecoilState(userState)
+    const [user]:string = useRecoilValue(userState)
     const[orders,setorder]=useRecoilState(orderstate)
     const [product,setproduct] = useState<data>()
     const {id} = useParams();
@@ -22,6 +22,7 @@ const ProductCard=()=>{
             method:"GET",
         })
         const product = await res.json()
+        console.log(orders)
         setproduct(product)
     }
     useEffect(()=>{
