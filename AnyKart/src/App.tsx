@@ -29,7 +29,6 @@ return(
         <Route path="/productpage/:category/product/:id" element={<ProductCard/>}/>
         </Routes>
         </div>
-        
         </RecoilRoot>
         </BrowserRouter> 
 

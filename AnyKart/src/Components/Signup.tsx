@@ -33,7 +33,7 @@ const Signup = () => {
   const login = useGoogleLogin({
     onSuccess: async ({ code }) => {
       console.log(code)
-      const tokens = await axios.post('http://localhost:5000/auth/google', {  
+      const tokens = await axios.post('https://anykart.onrender.com/auth/google', {  
         code,
       });
   
@@ -69,7 +69,7 @@ const Signup = () => {
    
     <div className="w-screen h-screen bg-slate-300 flex items-center justify-center">
       <div className="flex flex-col  shadow-2xl bg-white w-96 p-6 border">
-      <Button  variant = "contained" onClick={() => login()}>Sign in with Google</Button>
+      <button  className=" bg-blue-500 rounded-md font-bold text-white p-2 shadow-sm shadow-black hover:bg-blue-700" onClick={() => login()}>Sign in with Google</button>
       <div className="m-2 text-[20px] font-extrabold mx-auto">---------------OR---------------</div>
         <div className="text-[24px] font-bold mx-auto ">Create Account</div>
         <input className="m-4 rounded-md text-[20px] p-2 border border-black" type="text" placeholder="Username" onChange={(e)=>{setuser(e.target.value)}} />

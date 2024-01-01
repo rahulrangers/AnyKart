@@ -13,12 +13,12 @@ interface data{
     stock:string
     }
 const ProductCard=()=>{
-    const [user]:string = useRecoilValue(userState)
+    const user = useRecoilValue(userState)
     const[orders,setorder]=useRecoilState(orderstate)
     const [product,setproduct] = useState<data>()
     const {id} = useParams();
     const getproduct = async()=>{
-        const res = await fetch(`http://localhost:5000/admin/product/${id}`,{
+        const res = await fetch(`https://anykart.onrender.com/admin/product/${id}`,{
             method:"GET",
         })
         const product = await res.json()

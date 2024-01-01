@@ -24,7 +24,7 @@ const Navbar=()=>{
       setAnchorEl(null);
     };
     const getuser = async()=>{
-      const response = await fetch("http://localhost:5000/getuser",{
+      const response = await fetch("https://anykart.onrender.com/getuser",{
       method:'GET',
       headers:{
         Authorization : localStorage.getItem("token")??'',

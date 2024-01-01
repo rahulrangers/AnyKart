@@ -8,7 +8,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: '100%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -17,9 +17,9 @@ const style = {
 const Profile = ()=>{
     const[total,settotal]= useState(0);
     const [orders,setorder] = useRecoilState(orderstate)
-    const [image]:string = useRecoilValue(imagestate)
-    const [user]:string = useRecoilValue(userState)
-    const[email]:string = useRecoilValue(emailstate)
+    const image = useRecoilValue(imagestate)
+    const user= useRecoilValue(userState)
+    const email = useRecoilValue(emailstate)
     const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,7 +41,7 @@ const Profile = ()=>{
         <div className="text-[20px] my-2 font-serif  break-words">Email : {email}</div>
       
         <div  className="my-4 flex justify-start" >
-        <Button variant="contained" onClick={handleOpen}>Incart</Button>
+        <button className="bg-blue-500 rounded-md font-bold text-white p-2 shadow-sm shadow-black hover:bg-blue-700" onClick={handleOpen}>Incart</button>
 <Modal
   open={open}
   onClose={handleClose}
@@ -50,24 +50,27 @@ const Profile = ()=>{
 >
   <Box sx={style}>
     <Typography id="modal-modal-title" variant="h6" component="h2">
-        <div className="flex ">
-            <div className="font-extrabold">
+        <div className="flex justify-between">
+            <div className="font-extrabold mx-4">
             Orders
             </div>
-            <div className="font-extrabold mx-52">
+            <div className="font-extrabold">
                Prize:
+            </div>
+            <div className="font-extrabold ">
+               
             </div>
         </div>
       {
       orders.map(order=>
-        <div className="flex my-2 p-2  font-sans border-black border-2 rounded-md shadow shadow-black">
-       <div className="w-52 ">
-        {order.name}
+        <div className="flex my-2 p-2 justify-between font-sans border-black border-2 rounded-md shadow shadow-black">
+       <div className="md:w-52 ">
+       {order.name}
        </div>
-       <div className="mx-20">
+       <div className="m-1" >
         ${order.prize}
        </div>
-       <div className="mx-1">
+       <div className="m-1">
       <Button onClick={()=>{
         setorder(orders.filter(x=> x.name!=order.name))
       }} variant="contained">Remove</Button>

@@ -10,7 +10,7 @@ const Login = () => {
     const [password,setpassword]= useState("");
     const getuser=async()=>{
       console.log(email);
-        const response = await fetch("http://localhost:5000/login",{
+        const response = await fetch("https://anykart.onrender.com/login",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json',
