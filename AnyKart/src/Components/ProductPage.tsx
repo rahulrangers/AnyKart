@@ -33,7 +33,7 @@ const Card=(props:any)=>{
 const ProductPage=()=>{
 const {category} = useParams();
 const getproducts=async()=>{
-    const res = await fetch(`http://localhost:5000/admin/products/${category}`,{
+    const res = await fetch(`https://anykart.onrender.com/admin/products/${category}`,{
         method:"GET",
     })
     const products = await res.json();
