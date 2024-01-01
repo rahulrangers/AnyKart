@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run copy-env && node dist/index.js",
+    "start": "node dist/index.js",
     "copy-env": "copy .env dist\\"
   },
   "keywords": [],
